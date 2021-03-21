@@ -16,35 +16,49 @@ class Fore:
    BGC = '\033[103m'
    WHITE = '\033[37m'
 ifile = "ready.txt"
-inputFile=open(ifile,'r')	
+inputFile=open(ifile,'r')
+
+proxyDict = { 
+              "http"  : "http://127.0.0.1:8080", 
+              "https" : "https://127.0.0.1:8080", 
+              "ftp"   : "ftp://127.0.0.1:8080"
+            }
+
 def ur(): 
-	a = 0	
-	for i in inputFile.readlines():
-				url = i
-				a = int(a) + 1
-				try:
-					firefox_options = webdriver.FirefoxOptions()
-					firefox_options.add_argument("--private")
-					browser = webdriver.Firefox(options=firefox_options)
-					browser.get('http://evolterr.com/3CcY')
-					os.system("clear")
-					print(Fore.RED + Fore.BOLD +'Link : '+Fore.GREEN +url)			
-					print(Fore.RED + Fore.BOLD +'Number : '+Fore.GREEN + str(a) + "\n")
-					print(Fore.RED + Fore.BOLD +'Title: '+Fore.GREEN +  browser.title + "\n")
-					time.sleep(15)
-					print(Fore.RED + Fore.BOLD +'Click : '+Fore.GREEN + " On Skip" + "\n")
-					element = browser.find_element_by_id("skip_bu2tton")
-					element.click()
-					time.sleep(10)
-					print(Fore.RED + Fore.BOLD +'Click : '+Fore.GREEN + " Close Browser"+ "\n")
-					browser.quit()
-				except:
-					print("Something Wrong")
+	a = 0
+	while True:
+		for i in inputFile.readlines():
+					url = i
+					a = int(a) + 1
+					try:
+						firefox_options = webdriver.FirefoxOptions()
+						firefox_options.add_argument("--private")
+						browser = webdriver.Firefox(proxy=proxy , firefox_options=firefox_options)
+						browser.get(url)
+						os.system("clear")
+						print(Fore.RED + Fore.BOLD +'Link : '+Fore.GREEN +url)			
+						print(Fore.RED + Fore.BOLD +'Number : '+Fore.GREEN + str(a) + "\n")
+						print(Fore.RED + Fore.BOLD +'Title: '+Fore.GREEN +  browser.title + "\n")
+						time.sleep(15)
+						print(Fore.RED + Fore.BOLD +'Click : '+Fore.GREEN + " On Skip" + "\n")
+						element = browser.find_element_by_id("skip_bu2tton")
+						element.click()
+						time.sleep(10)
+						print(Fore.RED + Fore.BOLD +'Click : '+Fore.GREEN + " Close Browser"+ "\n")
+						browser.quit()
+					except:
+						print("Something Wrong")
 
-import threading
 
-t1 = threading.Thread(target=ur)
-t1.start()
+ur()
+
+
+
+
+# import threading
+
+# t1 = threading.Thread(target=ur)
+# t1.start()
 
     # profile = webdriver.FirefoxProfile()
     # options = webdriver.FirefoxOptions()
