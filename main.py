@@ -18,43 +18,16 @@ class Fore:
 ifile = "ready.txt"
 inputFile=open(ifile,'r')
 
-# proxy = { 
-#               "http"  : "http://127.0.0.1:9050", 
-#               "https" : "https://127.0.0.1:9050", 
-#               "ftp"   : "ftp://127.0.0.1:9050"
-#             }
-from selenium import webdriver
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+proxyD = { 
+              "socksv5"  : "http://127.0.0.1:9050", 
+            }
+myProxy = "127.0.0.1:9050"
 
-
-profile = webdriver.FirefoxProfile()
-
-# user_agent = "Some UserAgent String here..."
-proxy_ip = "127.0.0.1"
-proxy_port = "9050"
-
-profile.set_preference("network.proxy.type", 1)
-profile.set_preference("network.proxy.http", str(proxy_ip))
-profile.set_preference("network.proxy.http_port", int(proxt_port))
-profile.set_preference("network.proxy.ssl", str(proxy_ip))
-profile.set_preference("network.proxy.ssl_port", int(proxt_port))
-profile.set_preference("network.proxy.ftp", str(proxy_ip))
-profile.set_preference("network.proxy.ftp_port", int(proxt_port))
-profile.set_preference("network.proxy.socks", str(proxy_ip))
-profile.set_preference("network.proxy.socks_port", int(proxt_port))
-profile.set_preference("network.http.use-cache", False)
-
-# profile.set_preference("general.useragent.override", user_agent)
-
-profile.update_preferences()
-# binary = FirefoxBinary("/usr/bin/firefox")
-# driver = webdriver.Firefox(firefox_profile=profile, firefox_binary=binary)
-
-# driver.get("https://ifconfig.me")
-
-# driver.save_screenshot("check_ip.png")
-# driver.quit()
-
+ip, port = myProxy.split(":")
+driver = webdriver.FirefoxProfile()
+driver.set_preference('network.proxy.type', 1)
+driver.set_preference('network.proxy.socks', ip)
+driver.set_preference('network.proxy.socks_port', int(port))
 
 def ur(): 
 	a = 0
@@ -65,7 +38,7 @@ def ur():
 					try:
 						firefox_options = webdriver.FirefoxOptions()
 						firefox_options.add_argument("--private")
-						browser = webdriver.Firefox(firefox_profile=profile , firefox_options=firefox_options)
+						browser = webdriver.Firefox(driver , firefox_options=firefox_options)
 						browser.get(url)
 						os.system("clear")
 						print(Fore.RED + Fore.BOLD +'Link : '+Fore.GREEN +url)			
@@ -83,59 +56,3 @@ def ur():
 
 
 ur()
-
-
-
-
-# import threading
-
-# t1 = threading.Thread(target=ur)
-# t1.start()
-
-    # profile = webdriver.FirefoxProfile()
-    # options = webdriver.FirefoxOptions()
-    # options.set_preference("dom.webnotifications.serviceworker.enabled", False)
-    # options.set_preference("dom.webnotifications.enabled", False)
-    # options.add_argument('--headless')
-
-    # browser = webdriver.Firefox(firefox_profile=profile,options=options)
-    # return browser
-# os.system("sudo service tor start")
-# proxyDict = { 
-#               "http"  : "http://127.0.0.1:8080", 
-#               "https" : "https://127.0.0.1:8080", 
-#               "ftp"   : "ftp://127.0.0.1:8080"
-#             }
-# def ur(): 	
-# 	for i in inputFile.readlines():
-# 			url = i
-# 			for i in range(1):
-# 				print("url number : " ,i)
-# 				os.system("sudo service tor reload")				
-# 				print("url : ", url)
-# 				# try:  
-# 				r = rq.get(url)
-# 				print(r.text) 
-# 				try:
-# 				# os.system(f"echo '{rw}' | grep 'value='")
-# 					a_child_process = subprocess.Popen(args=["firefox", "--private-window", f"{url}"], stdout=subprocess.PIPE)	
-# 					print(a_child_process)
-
-# 					# search_bar = driver.find_element_by_name("q")
-# 					# search_bar.clear()
-# 					# search_bar.send_keys("getting started with python")
-# 					# search_bar.send_keys(Keys.RETURN)
-# 					# print(driver.current_url)
-# 					time.sleep(20)
-# 					print("click on skip")
-# 					os.system("xdotool mousemove 1520 195 click 1")
-# 					time.sleep(10)
-# 					os.system("xdotool mousemove 1585 45 click 1")
-# 					print("click on menu close")
-# 				except:
-# 					pass
-
-# import threading
-
-# t1 = threading.Thread(target=ur)
-# t1.start()
