@@ -18,11 +18,22 @@ class Fore:
 ifile = "ready.txt"
 inputFile=open(ifile,'r')
 
-proxyDict = { 
-              "http"  : "http://127.0.0.1:8080", 
-              "https" : "https://127.0.0.1:8080", 
-              "ftp"   : "ftp://127.0.0.1:8080"
-            }
+# proxy = { 
+#               "http"  : "http://127.0.0.1:9050", 
+#               "https" : "https://127.0.0.1:9050", 
+#               "ftp"   : "ftp://127.0.0.1:9050"
+#             }
+firefox_capabilities = webdriver.DesiredCapabilities.FIREFOX
+firefox_capabilities['marionette'] = True
+
+PROXY = "127.0.0.1:9050"
+
+firefox_capabilities['proxy'] = {
+    "proxyType": "MANUAL",
+    "httpProxy": PROXY,
+    "ftpProxy": PROXY,
+    "sslProxy": PROXY
+}
 
 def ur(): 
 	a = 0
@@ -33,7 +44,7 @@ def ur():
 					try:
 						firefox_options = webdriver.FirefoxOptions()
 						firefox_options.add_argument("--private")
-						browser = webdriver.Firefox(proxy=proxy , firefox_options=firefox_options)
+						browser = webdriver.Firefox(capabilities=firefox_capabilities , firefox_options=firefox_options)
 						browser.get(url)
 						os.system("clear")
 						print(Fore.RED + Fore.BOLD +'Link : '+Fore.GREEN +url)			
