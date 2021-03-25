@@ -23,17 +23,38 @@ inputFile=open(ifile,'r')
 #               "https" : "https://127.0.0.1:9050", 
 #               "ftp"   : "ftp://127.0.0.1:9050"
 #             }
-firefox_capabilities = webdriver.DesiredCapabilities.FIREFOX
-firefox_capabilities['marionette'] = True
+from selenium import webdriver
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
-PROXY = "127.0.0.1:9050"
 
-firefox_capabilities['proxy'] = {
-    "proxyType": "MANUAL",
-    "httpProxy": PROXY,
-    "ftpProxy": PROXY,
-    "sslProxy": PROXY
-}
+profile = webdriver.FirefoxProfile()
+
+# user_agent = "Some UserAgent String here..."
+proxy_ip = "127.0.0.1"
+proxy_port = "9050"
+
+profile.set_preference("network.proxy.type", 1)
+profile.set_preference("network.proxy.http", str(proxy_ip))
+profile.set_preference("network.proxy.http_port", int(proxt_port))
+profile.set_preference("network.proxy.ssl", str(proxy_ip))
+profile.set_preference("network.proxy.ssl_port", int(proxt_port))
+profile.set_preference("network.proxy.ftp", str(proxy_ip))
+profile.set_preference("network.proxy.ftp_port", int(proxt_port))
+profile.set_preference("network.proxy.socks", str(proxy_ip))
+profile.set_preference("network.proxy.socks_port", int(proxt_port))
+profile.set_preference("network.http.use-cache", False)
+
+# profile.set_preference("general.useragent.override", user_agent)
+
+profile.update_preferences()
+# binary = FirefoxBinary("/usr/bin/firefox")
+# driver = webdriver.Firefox(firefox_profile=profile, firefox_binary=binary)
+
+# driver.get("https://ifconfig.me")
+
+# driver.save_screenshot("check_ip.png")
+# driver.quit()
+
 
 def ur(): 
 	a = 0
@@ -44,7 +65,7 @@ def ur():
 					try:
 						firefox_options = webdriver.FirefoxOptions()
 						firefox_options.add_argument("--private")
-						browser = webdriver.Firefox(capabilities=firefox_capabilities , firefox_options=firefox_options)
+						browser = webdriver.Firefox(firefox_profile=profile , firefox_options=firefox_options)
 						browser.get(url)
 						os.system("clear")
 						print(Fore.RED + Fore.BOLD +'Link : '+Fore.GREEN +url)			
