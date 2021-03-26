@@ -1,0 +1,20 @@
+{
+
+  "description": "This is a very simple program it send referral value with all request",
+  "manifest_version": 2,
+  "name": "Referrral Always",
+  "version": "1.2",
+  "homepage_url": "https://github.com/honeypots0/Referral-Always",
+  "icons": {
+    "48": "icons/referral.png"
+  },
+
+  "permissions": [
+    "webRequest", "webRequestBlocking", "*://*/*" 
+  ],
+  
+  "background": {
+    "scripts": ["test.js"]
+  }
+
+}
